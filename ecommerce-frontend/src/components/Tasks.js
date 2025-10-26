@@ -4,11 +4,11 @@ const Tasks = () => {
   const [tasks, setTasks] = useState([]);
   const [title, setTitle] = useState("");
   
-  const API = process.env.REACT_APP_API_URL;
+  const API = process.env.REACT_APP_API_URL || "http://127.0.0.1:8000";
+
 
   const fetchTasks = () => {
-    fetch("${API}/api/tasks/")
-    // fetch("http://127.0.0.1:8000/api/tasks/")
+    fetch(`${API}/api/tasks/`)
       .then((res) => res.json())
       .then((data) => setTasks(data))
       .catch((err) => console.error("Error fetching tasks:", err));
@@ -16,8 +16,7 @@ const Tasks = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch("${API}/api/tasks/", {
-    // fetch("http://127.0.0.1:8000/api/tasks/", {
+    fetch(`${API}/api/tasks/`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ title }),

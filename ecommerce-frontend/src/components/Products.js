@@ -9,8 +9,12 @@ const Products = () => {
     category: "",
   });
 
+  const API = process.env.REACT_APP_API_URL;
+
   const fetchProducts = () => {
-    fetch("http://127.0.0.1:8000/api/products/")
+    fetch("${API}/api/products/")
+ 
+    // fetch("http://127.0.0.1:8000/api/products/")
       .then((res) => res.json())
       .then((data) => setProducts(data))
       .catch((err) => console.error("Error fetching products:", err));
@@ -18,7 +22,8 @@ const Products = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch("http://127.0.0.1:8000/api/products/", {
+    fetch("${API}/api/products/", {
+    // fetch("http://127.0.0.1:8000/api/products/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form),

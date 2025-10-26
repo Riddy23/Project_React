@@ -9,11 +9,12 @@ const Users = () => {
   });
 
 
-  const API = process.env.REACT_APP_API_URL;
+  const API = process.env.REACT_APP_API_URL || "http://127.0.0.1:8000";
+  
 
   const fetchUsers = () => {
-    fetch("${API}/api/users/")
-    // fetch("http://127.0.0.1:8000/api/users/")
+    fetch(`${API}/api/users/`)
+  
       .then((res) => res.json())
       .then((data) => setUsers(data))
       .catch((err) => console.error("Error fetching users:", err));
@@ -21,8 +22,8 @@ const Users = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch("${API}/api/users/", {
-    // fetch("http://127.0.0.1:8000/api/users/", {
+    fetch(`${API}/api/users/`, {
+
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form),
